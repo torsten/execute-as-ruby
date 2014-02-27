@@ -1,0 +1,16 @@
+# See https://atom.io/docs/latest/creating-a-package#menus for more details
+'context-menu':
+  '.overlayer':
+      'Execute as Ruby': 'execute-as-ruby:execute'
+
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'Execute as Ruby'
+      'submenu': [
+        { 'label': 'Execute', 'command': 'execute-as-ruby:execute' }
+      ]
+    ]
+  }
+]
