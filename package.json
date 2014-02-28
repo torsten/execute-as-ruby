@@ -2,14 +2,15 @@
   "name": "execute-as-ruby",
   "description": "Execute the current line or selection with Ruby",
   "main": "./lib/execute-as-ruby",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
-  "activationEvents": ["execute-as-ruby:execute"],
+  "activationEvents": [
+    "execute-as-ruby:execute"
+  ],
   "repository": "https://github.com/torsten/execute-as-ruby",
   "license": "MIT",
   "engines": {
     "atom": ">0.60.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
