@@ -2,7 +2,7 @@
   "name": "execute-as-ruby",
   "description": "Execute the current line or selection with Ruby",
   "main": "./lib/execute-as-ruby",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "activationEvents": [
     "execute-as-ruby:execute"
