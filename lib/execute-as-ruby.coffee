@@ -31,7 +31,7 @@ module.exports =
 
   runRuby: (rubyCode, done) ->
       command = 'ruby'
-      args = ['--', @packagePath() + "/lib/helper.rb", rubyCode
+      args = ['--', @packagePath() + "/lib/helper.rb", rubyCode]
       output = []
       stdout = (data) -> output.push(data)
       exit = (code) -> done(output.join(""))
