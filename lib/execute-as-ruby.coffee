@@ -10,13 +10,9 @@ module.exports =
     cursor = editor.getCursor()
     selection = editor.getSelectedText()
 
-    # for p in atom.packages.getAvailablePackagePaths()
-    #     if p.indexOf("/execute-as-ruby") != -1
-    #         throw "FAIL"
-
     insertResult = (result) ->
         editor.moveCursorToEndOfLine()
-        editor.insertText(result)
+        editor.insertText(" " + result)
 
     if not selection
         line = cursor.getCurrentBufferLine()
@@ -24,17 +20,20 @@ module.exports =
     else
         result = @runRuby(selection, insertResult)
 
+  packagePath: ->
+    packagePath = null
+    for p in atom.packages.getAvailablePackagePaths()
+        if p.indexOf("/execute-as-ruby") != -1
+            packagePath = p
+    if not packagePath
+        throw "Could not locate package path"
+    packagePath
+
   runRuby: (rubyCode, done) ->
       command = 'ruby'
-      args = ['-e', rubyCode]
+      args = ['--', @packagePath() + "/lib/helper.rb", rubyCode
       output = []
-      stdout = (data) ->
-          console.log(data)
-          output.push(data)
-      exit = (code) ->
-          console.log("FIN")
-          done(output.join(""))
-      stderr = (data) ->
-          console.error(data)
-          output.push(data)
+      stdout = (data) -> output.push(data)
+      exit = (code) -> done(output.join(""))
+      stderr = (data) -> output.push(data)
       process = new BufferedProcess({command, args, stdout, stderr, exit})
