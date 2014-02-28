@@ -5,11 +5,11 @@
 
 'menu': [
   {
-    'label': 'Packages'
+    'label': 'Edit'
     'submenu': [
-      'label': 'Execute as Ruby'
+      'label': 'Text'
       'submenu': [
-        { 'label': 'Execute', 'command': 'execute-as-ruby:execute' }
+        { 'label': 'Execute as Ruby', 'command': 'execute-as-ruby:execute' }
       ]
     ]
   }
