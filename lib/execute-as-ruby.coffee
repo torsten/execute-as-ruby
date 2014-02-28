@@ -10,15 +10,15 @@ module.exports =
     cursor = editor.getCursor()
     selection = editor.getSelectedText()
 
-    insertResult = (result) ->
-        editor.moveCursorToEndOfLine()
-        editor.insertText(" " + result)
-
     if not selection
         line = cursor.getCurrentBufferLine()
-        result = @runRuby(line, insertResult)
+        @runRuby(line, (result) ->
+            editor.moveCursorToEndOfLine()
+            editor.insertText("\n" + result))
     else
-        result = @runRuby(selection, insertResult)
+        @runRuby(selection, (result) ->
+            editor.moveCursorToEndOfLine()
+            editor.insertText(" " + result))
 
   packagePath: ->
     packagePath = null
