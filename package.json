@@ -1,6 +1,6 @@
 {
   "name": "execute-as-ruby",
-  "description": "Execute the current line or selection as Ruby",
+  "description": "Execute the current line or selection with Ruby",
   "main": "./lib/execute-as-ruby",
   "version": "0.0.1",
   "private": true,
