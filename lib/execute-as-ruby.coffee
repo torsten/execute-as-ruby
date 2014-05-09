@@ -17,8 +17,8 @@ module.exports =
             editor.insertText("\n" + result))
     else
         @runRuby(selection, (result) ->
-            editor.moveCursorToEndOfLine()
-            editor.insertText(" " + result))
+            cursor.moveRight({moveToEndOfSelection: true})
+            editor.insertText("\n" + result))
 
   packagePath: ->
     packagePath = null
