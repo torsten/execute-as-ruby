@@ -2,7 +2,7 @@
   "name": "execute-as-ruby",
   "description": "Execute the current line or selection with Ruby",
   "main": "./lib/execute-as-ruby",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "activationCommands": {
     "atom-text-editor": "execute-as-ruby:execute"
