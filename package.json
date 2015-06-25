@@ -4,13 +4,13 @@
   "main": "./lib/execute-as-ruby",
   "version": "0.1.1",
   "private": true,
-  "activationEvents": [
-    "execute-as-ruby:execute"
-  ],
+  "activationCommands": {
+    "atom-text-editor": "execute-as-ruby:execute"
+  },
   "repository": "https://github.com/torsten/execute-as-ruby",
   "license": "MIT",
   "engines": {
-    "atom": ">0.60.0"
+    "atom": ">1.0.0"
   },
   "dependencies": {}
 }

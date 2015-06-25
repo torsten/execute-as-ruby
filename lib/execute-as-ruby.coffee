@@ -1,39 +1,39 @@
-{BufferedProcess} = require 'atom'
+{BufferedProcess, CompositeDisposable} = require 'atom'
 
 module.exports =
-  activate: ->
-    atom.workspaceView.command "execute-as-ruby:execute", => @execute()
+    activate: ->
+        @subscriptions = new CompositeDisposable
+        @subscriptions.add atom.commands.add 'atom-workspace',
+            'execute-as-ruby:execute': => @execute()
 
-  execute: ->
-    # This assumes the active pane item is an editor
-    editor = atom.workspace.activePaneItem
-    cursor = editor.getCursor()
-    selection = editor.getSelectedText()
+    execute: ->
+        if editor = atom.workspace.getActiveTextEditor()
+            if not selection = editor.getSelectedText()
+                cursor = editor.getLastCursor()
+                line = cursor.getCurrentBufferLine()
+                @runRuby(line, (result) ->
+                    editor.moveToEndOfLine()
+                    editor.insertText("\n" + result))
+            else
+                range = editor.getSelectedBufferRange()
+                @runRuby(selection, (result) ->
+                    editor.setCursorBufferPosition(range.end)
+                    editor.insertText(" " + result))
 
-    if not selection
-        line = cursor.getCurrentBufferLine()
-        @runRuby(line, (result) ->
-            editor.moveCursorToEndOfLine()
-            editor.insertText("\n" + result))
-    else
-        @runRuby(selection, (result) ->
-            editor.moveCursorToEndOfLine()
-            editor.insertText(" " + result))
+    packagePath: ->
+        packagePath = null
+        for p in atom.packages.getAvailablePackagePaths()
+            if p.indexOf("/execute-as-ruby") != -1
+                packagePath = p
+        if not packagePath
+            throw "Could not locate package path"
+        packagePath
 
-  packagePath: ->
-    packagePath = null
-    for p in atom.packages.getAvailablePackagePaths()
-        if p.indexOf("/execute-as-ruby") != -1
-            packagePath = p
-    if not packagePath
-        throw "Could not locate package path"
-    packagePath
-
-  runRuby: (rubyCode, done) ->
-      command = 'ruby'
-      args = ['--', @packagePath() + "/lib/helper.rb", rubyCode]
-      output = []
-      stdout = (data) -> output.push(data)
-      exit = (code) -> done(output.join(""))
-      stderr = (data) -> output.push(data)
-      process = new BufferedProcess({command, args, stdout, stderr, exit})
+    runRuby: (rubyCode, done) ->
+        command = 'ruby'
+        args = ['--', @packagePath() + "/lib/helper.rb", rubyCode]
+        output = []
+        stdout = (data) -> output.push(data)
+        exit = (code) -> done(output.join(""))
+        stderr = (data) -> output.push(data)
+        process = new BufferedProcess({command, args, stdout, stderr, exit})

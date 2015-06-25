@@ -8,5 +8,5 @@
 # For more detailed documentation see
 # https://atom.io/docs/latest/advanced/keymaps
 
-'body .editor':
+'atom-text-editor':
   'ctrl-E': 'execute-as-ruby:execute'
