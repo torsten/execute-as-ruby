@@ -10,7 +10,7 @@
   "repository": "https://github.com/torsten/execute-as-ruby",
   "license": "MIT",
   "engines": {
-    "atom": ">1.0.0"
+    "atom": ">=1.0.0"
   },
   "dependencies": {}
 }
